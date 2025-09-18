@@ -14,7 +14,7 @@ steps:
   displayName: 'Build and Push Docker Image'
   inputs:
     # !!! MUST match your Docker service connection name exactly !!!
-    containerRegistry: 'serviceconnectiondocker'
+    containerRegistry: 'github-docker'
     repository: '$(imageRepository)'
     command: 'buildAndPush'
     Dockerfile: '$(dockerfilePath)'
