@@ -1,0 +1,23 @@
+trigger:
+- none  # Pipeline will run on every push to the main branch
+
+pool:
+  vmImage: 'ubuntu-latest' # Use a Linux build agent
+
+variables:
+  # The name of your ACR repository. Change 'my-python-app' to your desired name.
+  imageRepository: 'my-python-app'
+  dockerfilePath: '**/Dockerfile' # Path to your Dockerfile
+
+steps:
+- task: Docker@2
+  displayName: 'Build and Push Docker Image'
+  inputs:
+    # !!! MUST match your Docker service connection name exactly !!!
+    containerRegistry: 'serviceconnectiondocker'
+    repository: '$(imageRepository)'
+    command: 'buildAndPush'
+    Dockerfile: '$(dockerfilePath)'
+    tags: |
+      $(Build.BuildId)
+      latest  
